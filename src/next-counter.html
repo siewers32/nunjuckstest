@@ -1,0 +1,35 @@
+<template id="next-counter-template">
+    <style>
+        button {
+            background-color: rgb(240, 69, 1);
+            color: rgb(26, 2, 69);
+        }
+    </style>
+    <div>
+        Hier wat tekst
+    </div>
+    <button id="mybutton">
+        <slot>1</slot>
+    </button>
+</template>
+
+<script>
+    class NextCounter extends HTMLElement {
+        constructor() {
+            super();
+            let template = document.getElementById("next-counter-template")
+            let shadowRoot = this.attachShadow({ mode: "open" });
+            shadowRoot.appendChild(template.content.cloneNode(true));
+        }
+
+        connectedCallback() {
+            console.log("next-counter has been added to the page.");
+            this.addEventListener("click", function () {
+                let curvalue = parseInt(this.innerText)
+                let newval = curvalue + 1
+                this.innerText = newval
+            })
+        }
+    }
+    customElements.define("next-counter", NextCounter)    
+</script>

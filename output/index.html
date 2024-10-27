@@ -1,0 +1,60 @@
+<!-- views/index.njk -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+<template id="jjs-p-template">
+    <style>
+      p {
+        color: white;
+        background-color: #666;
+        padding: 5px;
+      }
+    </style>
+    <p><slot>jjs-p-template, that's the one</slot></p>
+</template>
+<template id="next-counter-template">
+    <style>
+        button {
+            background-color: rgb(240, 69, 1);
+            color: rgb(26, 2, 69);
+        }
+    </style>
+    <div>
+        Hier wat tekst
+    </div>
+    <button id="mybutton">
+        <slot>1</slot>
+    </button>
+</template>
+
+<script>
+    class NextCounter extends HTMLElement {
+        constructor() {
+            super();
+            let template = document.getElementById("next-counter-template")
+            let shadowRoot = this.attachShadow({ mode: "open" });
+            shadowRoot.appendChild(template.content.cloneNode(true));
+        }
+
+        connectedCallback() {
+            console.log("next-counter has been added to the page.");
+            this.addEventListener("click", function () {
+                let curvalue = parseInt(this.innerText)
+                let newval = curvalue + 1
+                this.innerText = newval
+            })
+        }
+    }
+    customElements.define("next-counter", NextCounter)    
+</script></head>
+
+<body>
+    <h1>Balberdei en nog wat</h1>
+    <next-counter>2</next-counter>
+</body>
+
+</html>

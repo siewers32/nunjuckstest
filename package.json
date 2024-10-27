@@ -1,0 +1,18 @@
+{
+  "nodemonConfig": {
+    "ignore": ["**/test/**", "**/docs/**"],
+    "ext": "html,js,njk,css"
+  },
+  "scripts": {
+    "build": "nunjucks index.njk -p views -o output",
+    "dev": "nodemon server.js",
+    "watch": "nunjucks '*.tpl' -w -p src -o output"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "nunjucks": "^3.2.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
